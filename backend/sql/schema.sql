@@ -64,3 +64,4 @@ JOIN students s ON s.student_id = v.student_id
 WHERE NOT EXISTS (
     SELECT 1 FROM payments p WHERE p.reference_no = v.reference_no
 );
+
