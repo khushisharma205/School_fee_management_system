@@ -46,7 +46,10 @@ VALUES (
     'admin@school.com',
     '$2b$10$Hdb..c2C0pGCJgYRNUeczuIvgAJAbQPIDwhx1dB6/M9V5mbLmwZqi',
     'admin'
+<<<<<<< HEAD
    
+=======
+>>>>>>> 79b0e6167da87b10227d6d7350fcbabbcf36eb25
 )
 ON DUPLICATE KEY UPDATE email = email;
 
@@ -73,7 +76,11 @@ select * from students;
 DELETE FROM payments WHERE id > 3;
 select * from students;
 UPDATE students SET is_deleted = 1 WHERE id IN (4, 5);
+<<<<<<< HEAD
 select * from students;
 
 
 
+=======
+select * from students;
+>>>>>>> 79b0e6167da87b10227d6d7350fcbabbcf36eb25
