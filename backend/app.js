@@ -12,18 +12,10 @@ const dashboardRoutes = require('./routes/dashboardRoutes');
 const errorMiddleware = require('./middleware/errorMiddleware');
 
 const app = express();
-const allowedOrigins = new Set([
-  process.env.FRONTEND_URL || 'https://school-fee-management-system-frontend.onrender.com',
-  'http://localhost:5173'
-]);
 
 app.use(helmet());
 app.disable('x-powered-by');
-app.use(cors({
-  origin: (origin, callback) => {
-    callback(null, !origin || allowedOrigins.has(origin));
-  }
-}));
+app.use(cors());
 app.use(express.json());
 app.use(morgan('dev'));
 
