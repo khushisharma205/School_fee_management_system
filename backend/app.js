@@ -4,6 +4,7 @@ const cors = require('cors');
 const helmet = require('helmet');
 const morgan = require('morgan');
 
+const authController = require('./controllers/authController');
 const authRoutes = require('./routes/authRoutes');
 const studentRoutes = require('./routes/studentRoutes');
 const feeRoutes = require('./routes/feeRoutes');
@@ -23,6 +24,7 @@ app.get('/', (req, res) => {
   res.json({ message: 'School Fee Management System API is running' });
 });
 
+app.post('/api/login', authController.login);
 app.use('/api/auth', authRoutes);
 app.use('/api/students', studentRoutes);
 app.use('/api/fees', feeRoutes);
