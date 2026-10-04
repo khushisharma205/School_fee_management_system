@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const api = axios.create({
-  baseURL: 'https://school-fee-management-system-vm7k.onrender.com/api'
+  baseURL: 'https://school-fee-management-system-iqni.onrender.com/api'
 });
 
 api.interceptors.request.use((config) => {
