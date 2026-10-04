@@ -93,26 +93,19 @@ export default function Fees() {
 
 
   const downloadReceipt = async (studentId) => {
-    const token = localStorage.getItem('token');
-
-    const response = await fetch(`http://localhost:5000/api/fees/receipt/${studentId}`, {
-      headers: {
-        'Authorization': `Bearer ${token}`
-      }
-    });
-
-    if (!response.ok) {
+    try {
+      const { data: blob } = await api.get(`/fees/receipt/${studentId}`, {
+        responseType: 'blob'
+      });
+      const url = window.URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `receipt_${studentId}.pdf`;
+      a.click();
+      window.URL.revokeObjectURL(url);
+    } catch {
       alert('Receipt download failed');
-      return;
     }
-
-    const blob = await response.blob();
-    const url = window.URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = `receipt_${studentId}.pdf`;
-    a.click();
-    window.URL.revokeObjectURL(url);
   };
 
   return (

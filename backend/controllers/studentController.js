@@ -111,7 +111,7 @@ exports.updateStudent = async (req, res, next) => {
 exports.deleteStudent = async (req, res, next) => {
   try {
     const [result] = await pool.execute(
-      'DELETE students WHERE id = ?',
+      'UPDATE students SET is_deleted = 1 WHERE id = ? AND is_deleted = 0',
       [req.params.id]
     );
 
