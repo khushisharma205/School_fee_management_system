@@ -14,3 +14,7 @@ Apply `backend/sql/schema.sql` to the database selected by `DB_NAME` before
 using login. The schema creates tables and seed data without dropping or
 recreating the database. If login still returns HTTP 500 after deployment,
 check the backend service logs for database connection or missing-table errors.
+
+For local frontend development, set `VITE_API_BASE_URL=http://localhost:5000/api`
+in `frontend/.env.local` to send API requests to the local backend. The checked-in
+frontend configuration otherwise defaults to the deployed API URL.
