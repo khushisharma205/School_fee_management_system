@@ -14,7 +14,10 @@ exports.getSummary = async (req, res, next) => {
 
   
     const [[collected]] = await pool.execute(
-      'SELECT COALESCE(SUM(amount),0) AS total_collected_fee FROM payments'
+      `SELECT COALESCE(SUM(payments.amount), 0) AS total_collected_fee
+       FROM payments
+       INNER JOIN students ON students.id = payments.student_ref_id
+       WHERE students.is_deleted = 0`
     );
 
     const total_assigned = Number(assigned.total_assigned_fee);
@@ -24,6 +27,7 @@ exports.getSummary = async (req, res, next) => {
 
     res.json({
       total_students: Number(studentCount.total_students),
+      total_assigned_fee: total_assigned,
       total_collected_fee: total_collected,
       total_paid_fee: total_collected,
       total_pending_fee: total_pending
