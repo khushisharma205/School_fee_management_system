@@ -15,7 +15,7 @@ button, input, select, textarea { font: inherit; }
   display: grid;
   place-items: center;
   background: linear-gradient(135deg, #0f172a, #2563eb);
-  background-image: url("./src/image/school.jpg");
+  background-image: url("./image/school.jpg");
   background-repeat: no-repeat;
   background-size: cover;
 }

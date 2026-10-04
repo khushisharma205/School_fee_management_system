@@ -1,7 +1,3 @@
-DROP DATABASE school_fee_management;
-CREATE DATABASE IF NOT EXISTS school_fee_management;
-USE school_fee_management;
-
 CREATE TABLE IF NOT EXISTS users (
     id INT AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(100) NOT NULL,
@@ -46,10 +42,6 @@ VALUES (
     'admin@school.com',
     '$2b$10$Hdb..c2C0pGCJgYRNUeczuIvgAJAbQPIDwhx1dB6/M9V5mbLmwZqi',
     'admin'
-<<<<<<< HEAD
-   
-=======
->>>>>>> 79b0e6167da87b10227d6d7350fcbabbcf36eb25
 )
 ON DUPLICATE KEY UPDATE email = email;
 
@@ -61,26 +53,14 @@ VALUES
 ON DUPLICATE KEY UPDATE full_name = VALUES(full_name);
 
 INSERT INTO payments (student_ref_id, amount, payment_method, reference_no, remarks, created_by)
-SELECT s.id, v.amount, v.payment_method, v.reference_no, v.remarks, 1
+SELECT s.id, v.amount, v.payment_method, v.reference_no, v.remarks,
+       (SELECT id FROM users WHERE email = 'admin@school.com' LIMIT 1)
 FROM (
   SELECT 'STU001' AS student_id, 20000 AS amount, 'cash' AS payment_method, 'REF-1001' AS reference_no, 'First installment' AS remarks
   UNION ALL
   SELECT 'STU002', 42000, 'upi', 'REF-1002', 'Full payment'
 ) v
-JOIN students s ON s.student_id = v.student_id;
-SELECT COUNT(*) FROM students;
-SELECT COUNT(*) FROM users;
-SELECT COUNT(*) FROM payments;
-SELECT SUM(amount) AS total FROM payments;
-select * from students;
-DELETE FROM payments WHERE id > 3;
-select * from students;
-UPDATE students SET is_deleted = 1 WHERE id IN (4, 5);
-<<<<<<< HEAD
-select * from students;
-
-
-
-=======
-select * from students;
->>>>>>> 79b0e6167da87b10227d6d7350fcbabbcf36eb25
+JOIN students s ON s.student_id = v.student_id
+WHERE NOT EXISTS (
+    SELECT 1 FROM payments p WHERE p.reference_no = v.reference_no
+);
