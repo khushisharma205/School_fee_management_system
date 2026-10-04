@@ -3,10 +3,12 @@
 
 ## Render deployment
 
-Configure the backend service with `DB_HOST`, `DB_USER`, `DB_PASSWORD`, `DB_NAME`,
-and `JWT_SECRET`. Set `FRONTEND_URL` to
-`https://school-fee-management-system-frontend.onrender.com` if the frontend
-uses a different origin from the default.
+Configure the backend service with either a MySQL `DATABASE_URL` (or `MYSQL_URL`)
+or the individual `DB_HOST`, `DB_PORT`, `DB_USER`, `DB_PASSWORD`, and `DB_NAME`
+variables, plus `JWT_SECRET`. Set `DB_SSL=true` when the MySQL provider requires
+TLS, and set `DB_SSL_CA` if it requires a provider CA certificate.
+Set `FRONTEND_URL` to `https://school-fee-management-system-frontend.onrender.com`
+if the frontend uses a different origin from the default.
 
 Apply `backend/sql/schema.sql` to the database selected by `DB_NAME` before
 using login. The schema creates tables and seed data without dropping or
